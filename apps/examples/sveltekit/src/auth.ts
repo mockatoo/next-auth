@@ -31,18 +31,26 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
   trustHost: true,
   providers: [
     Apple,
-    Auth0,
-    AzureB2C({
-      clientId: env.AUTH_AZURE_AD_B2C_ID,
-      clientSecret: env.AUTH_AZURE_AD_B2C_SECRET,
-      issuer: env.AUTH_AZURE_AD_B2C_ISSUER,
-    }),
-    BoxyHQSAML({
-      clientId: "dummy",
-      clientSecret: "dummy",
-      issuer: env.AUTH_BOXYHQ_SAML_ISSUER,
-    }),
-    Cognito,
+    ...(env.AUTH_AUTH0_ISSUER ? [Auth0] : []),
+    ...(env.AUTH_AZURE_AD_B2C_ISSUER
+      ? [
+          AzureB2C({
+            clientId: env.AUTH_AZURE_AD_B2C_ID,
+            clientSecret: env.AUTH_AZURE_AD_B2C_SECRET,
+            issuer: env.AUTH_AZURE_AD_B2C_ISSUER,
+          }),
+        ]
+      : []),
+    ...(env.AUTH_BOXYHQ_SAML_ISSUER
+      ? [
+          BoxyHQSAML({
+            clientId: "dummy",
+            clientSecret: "dummy",
+            issuer: env.AUTH_BOXYHQ_SAML_ISSUER,
+          }),
+        ]
+      : []),
+    ...(env.AUTH_COGNITO_ISSUER ? [Cognito] : []),
     Coinbase,
     Discord,
     Dropbox,
@@ -51,11 +59,11 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
     GitLab,
     Google,
     Hubspot,
-    Keycloak,
+    ...(env.AUTH_KEYCLOAK_ISSUER ? [Keycloak] : []),
     LinkedIn,
     Netlify,
-    Okta,
-    Passage,
+    ...(env.AUTH_OKTA_ISSUER ? [Okta] : []),
+    ...(env.AUTH_PASSAGE_ISSUER ? [Passage] : []),
     Pinterest,
     Reddit,
     Slack,
