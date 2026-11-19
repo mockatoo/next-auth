@@ -25,6 +25,8 @@ import Twitch from "@auth/sveltekit/providers/twitch"
 import Twitter from "@auth/sveltekit/providers/twitter"
 import WorkOS from "@auth/sveltekit/providers/workos"
 import Zoom from "@auth/sveltekit/providers/zoom"
+import { MockGitHub } from "@mockatoo/connect-authjs"
+import { dev } from "$app/environment"
 import { env } from "$env/dynamic/private"
 
 export const { handle, signIn, signOut } = SvelteKitAuth({
@@ -55,7 +57,9 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
     Discord,
     Dropbox,
     Facebook,
-    GitHub,
+    // In development (`vite dev`), GitHub sign-in uses Mockatoo's mock of
+    // GitHub, so no GitHub OAuth app is needed. Production uses GitHub.
+    dev ? MockGitHub() : GitHub,
     GitLab,
     Google,
     Hubspot,

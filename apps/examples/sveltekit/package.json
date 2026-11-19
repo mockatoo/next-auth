@@ -11,19 +11,23 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "1.55.1",
     "@sveltejs/adapter-auto": "^3.3.1",
     "@sveltejs/kit": "^2.60.1",
     "@sveltejs/vite-plugin-svelte": "^5.1.1",
+    "@types/node": "^20.8.10",
     "svelte": "^5.55.7",
     "svelte-check": "^4.0.4",
     "typescript": "5.4.5",
     "vite": "^6.4.2"
   },
   "dependencies": {
-    "@auth/sveltekit": "latest"
+    "@auth/sveltekit": "latest",
+    "@mockatoo/connect-authjs": "^0.3.0"
   },
   "type": "module",
   "pnpm": {

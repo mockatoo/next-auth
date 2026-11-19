@@ -32,6 +32,17 @@
 
 This is the official SvelteKit Auth example for [Auth.js](https://sveltekit.authjs.dev).
 
+### Sign in with GitHub without an OAuth app
+
+In development (`pnpm dev`), GitHub sign-in goes through [Mockatoo](https://mockatoo.globalunderdog.com), a hosted mock of GitHub's OAuth (see `src/auth.ts`). You do not need a GitHub OAuth app or `AUTH_GITHUB_ID` to try sign-in locally: sign up for a free Mockatoo account and sign in with its email and password. Production builds still use GitHub.
+
+The Playwright test in `tests/` starts the development server and signs in with GitHub through Mockatoo. Add your Mockatoo account to `.env` as `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD` (without them, the full sign-in test is skipped), then run:
+
+```sh
+pnpm exec playwright install chromium
+pnpm test:e2e
+```
+
 ## Getting started
 
 You can instantly deploy this example to [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=sveltekit-auth-example) by clicking the following button.
